@@ -1,0 +1,197 @@
+@user_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6InVzZXIiLCJpYXQiOjE3NDk0MTExMzQsImV4cCI6MTc0OTQ5NzUzNH0.PnQ4QNLMUtUlNnlcnZXJrE83kx8lrBdVzow_eNWv1sI
+@organizer_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6Im9yZ2FuaXplciIsImlhdCI6MTc0OTQxMTE1MCwiZXhwIjoxNzQ5NDk3NTUwfQ.-_KPVMfPKb2xtJGCnzcmUhU-HLtxiPZdWP4ZNVV7Yio
+@admin_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzQ5NDExMDU4LCJleHAiOjE3NDk0OTc0NTh9.QjthkGa7VDE26fjEy-tCUxz9ivD-wGXVPH_rjoBcaa8
+
+### Register User
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "User 1",
+  "username": "user1",
+  "password": "password123",
+  "confirmPassword": "password123"
+}
+
+### Register Organizer
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Organizer 1",
+  "username": "organizer1",
+  "password": "password123",
+  "confirmPassword": "password123"
+}
+
+### Register Admin
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Admin 1",
+  "username": "admin1",
+  "password": "password123",
+  "confirmPassword": "password123"
+}
+
+### Login User
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "user1",
+  "password": "password123"
+}
+
+### Login Organizer
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "organizer1",
+  "password": "password123"
+}
+
+### Login Admin
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin1",
+  "password": "password123"
+}
+
+### Apply as Organizer
+POST http://localhost:3000/api/organizer/apply
+Authorization: Bearer {{user_token}}
+Content-Type: application/json
+
+{
+  "organizationName": "EventEase Org",
+  "organizationDesc": "Penyelenggara event keren"
+}
+
+### Admin - Get Organizer Requests
+GET http://localhost:3000/api/admin/organizer-requests
+Authorization: Bearer {{admin_token}}
+
+### Admin - Approve Organizer
+POST http://localhost:3000/api/admin/organizer-requests/2/approve
+Authorization: Bearer {{admin_token}}
+
+### Admin - Reject Organizer
+POST http://localhost:3000/api/admin/organizer-requests/1/reject
+Authorization: Bearer {{admin_token}}
+
+### Organizer - Create Event
+POST http://localhost:3000/api/organizer/event
+Authorization: Bearer {{organizer_token}}
+Content-Type: application/json
+
+{
+  "name": "Konser Musik 5",
+  "description": "Konser musik terbesar tahun ini",
+  "category": "Music",
+  "date": "2025-07-01T19:00:00Z",
+  "longitude": 110.3631328,
+  "latitude": -7.7937525,
+  "time_zone_label": "WIB",
+  "currency": "IDR",
+  "price": 100000
+}
+
+### Organizer - Edit Event
+PUT http://localhost:3000/api/organizer/event/1
+Authorization: Bearer {{organizer_token}}
+Content-Type: application/json
+
+{
+  "name": "Konser Musik Update",
+  "description": "Update deskripsi",
+  "category": "Music",
+  "date": "2025-07-01T20:00:00Z",
+  "longitude": 106.827153,
+  "latitude": -6.175392,
+  "time_zone_label": "WIT",
+  "currency": "AUD",
+  "price": 120000
+}
+
+### Organizer - Delete Event
+DELETE http://localhost:3000/api/organizer/event/2
+Authorization: Bearer {{organizer_token}}
+
+### Organizer - Add Important Location
+POST http://localhost:3000/api/organizer/location
+Authorization: Bearer {{organizer_token}}
+Content-Type: application/json
+
+{
+  "eventId": 1,
+  "name": "Toilet Barat",
+  "longitude": 106.8272,
+  "latitude": -6.1754,
+  "type": "toilet"
+}
+
+### Organizer - Edit Important Location
+PUT http://localhost:3000/api/organizer/location/1
+Authorization: Bearer {{organizer_token}}
+Content-Type: application/json
+
+{
+  "name": "Toilet Timur",
+  "longitude": 106.8273,
+  "latitude": -6.1755,
+  "type": "toilet"
+}
+
+### Organizer - Delete Important Location
+DELETE http://localhost:3000/api/organizer/location/1
+Authorization: Bearer {{organizer_token}}
+
+### Get All Events
+GET http://localhost:3000/api/event
+
+### Get Event By ID
+GET http://localhost:3000/api/event/1
+
+### Search Event by Name/Category
+GET http://localhost:3000/api/event/search?name=konser&category=Music
+
+### Get Nearby Events
+GET http://localhost:3000/api/event/nearby?longitude=106.827153&latitude=-6.175392&radius=5
+
+### Get Important Locations by Event
+GET http://localhost:3000/api/location/event/1
+
+### Add Event to Favorite
+POST http://localhost:3000/api/user/favorites
+Authorization: Bearer {{user_token}}
+Content-Type: application/json
+
+{
+  "eventId": 1
+}
+
+### Get My Favorites
+GET http://localhost:3000/api/user/favorites
+Authorization: Bearer {{user_token}}
+
+### Remove Event from Favorite
+DELETE http://localhost:3000/api/user/favorites
+Authorization: Bearer {{user_token}}
+Content-Type: application/json
+
+{
+  "eventId": 1
+}
+
+### Organizer - Get My Events
+GET http://localhost:3000/api/organizer/my-events
+Authorization: Bearer {{organizer_token}}
+
+### Organizer - Get Important Locations by My Event
+GET http://localhost:3000/api/organizer/my-locations/1
+Authorization: Bearer {{organizer_token}}
