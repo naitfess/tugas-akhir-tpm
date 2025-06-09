@@ -33,3 +33,15 @@ exports.removeFavorite = async (req, res) => {
     res.status(500).json({ message: 'Server error', error: err.message });
   }
 };
+
+// Tambah: update profile image
+exports.updateProfileImage = async (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ message: 'No file uploaded' });
+    const imageUrl = `/uploads/${req.file.filename}`;
+    await User.update({ image_url: imageUrl }, { where: { id: req.user.id } });
+    res.json({ image_url: imageUrl });
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err.message });
+  }
+};

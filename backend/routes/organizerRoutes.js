@@ -3,12 +3,13 @@ const router = express.Router();
 const organizerController = require('../controllers/organizerController');
 const auth = require('../middleware/authMiddleware');
 const role = require('../middleware/roleMiddleware');
+const upload = require('../middleware/uploadMiddleware');
 
 router.post('/apply', auth, organizerController.applyOrganizer);
 
 // Event CRUD
-router.post('/event', auth, role('organizer'), organizerController.createEvent);
-router.put('/event/:id', auth, role('organizer'), organizerController.editEvent);
+router.post('/event', auth, role('organizer'), upload.single('image'), organizerController.createEvent);
+router.put('/event/:id', auth, role('organizer'), upload.single('image'), organizerController.editEvent);
 router.delete('/event/:id', auth, role('organizer'), organizerController.deleteEvent);
 
 // Location CRUD

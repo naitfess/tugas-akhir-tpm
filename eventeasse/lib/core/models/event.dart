@@ -25,6 +25,8 @@ class Event extends HiveObject {
   final double price;
   @HiveField(10)
   final List<dynamic>? locations;
+  @HiveField(11)
+  String? imageUrl;
 
   Event({
     required this.id,
@@ -38,6 +40,7 @@ class Event extends HiveObject {
     required this.currency,
     required this.price,
     this.locations,
+    this.imageUrl,
   });
 
   factory Event.fromJson(Map<String, dynamic> json) {
@@ -53,6 +56,7 @@ class Event extends HiveObject {
       currency: json['currency'],
       price: json['price'].toDouble(),
       locations: json['locations'],
+      imageUrl: json['image_url'],
     );
   }
 }

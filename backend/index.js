@@ -10,6 +10,7 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 })); // Tambahkan ini
 app.use(express.json());
+app.use('/uploads', express.static(require('path').join(__dirname, 'public/uploads')));
 
 const db = require('./models');
 const authRoutes = require('./routes/authRoutes');

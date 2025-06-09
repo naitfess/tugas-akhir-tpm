@@ -17,6 +17,10 @@ exports.applyOrganizer = async (req, res) => {
 
 exports.createEvent = async (req, res) => {
   const { name, description, category, date, longitude, latitude, time_zone_label, currency, price } = req.body;
+  let image_url = null;
+  if (req.file) {
+    image_url = `/uploads/${req.file.filename}`;
+  }
   try {
     const event = await Event.create({
       name,
@@ -28,7 +32,8 @@ exports.createEvent = async (req, res) => {
       organizerId: req.user.id,
       time_zone_label,
       currency,
-      price
+      price,
+      image_url
     });
     res.status(201).json(event);
   } catch (err) {
@@ -39,10 +44,16 @@ exports.createEvent = async (req, res) => {
 exports.editEvent = async (req, res) => {
   const { id } = req.params;
   const { name, description, category, date, longitude, latitude, time_zone_label, currency, price } = req.body;
+  let image_url = null;
+  if (req.file) {
+    image_url = `/uploads/${req.file.filename}`;
+  }
   try {
     const event = await Event.findOne({ where: { id, organizerId: req.user.id } });
     if (!event) return res.status(404).json({ message: 'Event not found' });
-    await event.update({ name, description, category, date, longitude, latitude, time_zone_label, currency, price });
+    const updateData = { name, description, category, date, longitude, latitude, time_zone_label, currency, price };
+    if (image_url) updateData.image_url = image_url;
+    await event.update(updateData);
     res.json(event);
   } catch (err) {
     res.status(500).json({ message: 'Server error', error: err.message });

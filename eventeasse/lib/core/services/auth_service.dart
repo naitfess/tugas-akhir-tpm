@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:hive/hive.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AuthService {
   static const String baseUrl = 'http://localhost:3000/api/auth';
@@ -59,5 +60,19 @@ class AuthService {
   Future<String?> getRole() async {
     final box = await Hive.openBox('auth');
     return box.get('role');
+  }
+
+  Future<String?> uploadProfileImage(String token, XFile image) async {
+    final uri = Uri.parse('http://localhost:3000/api/user/profile/image');
+    final request = http.MultipartRequest('POST', uri)
+      ..headers['Authorization'] = 'Bearer $token'
+      ..files.add(await http.MultipartFile.fromPath('image', image.path));
+    final response = await request.send();
+    if (response.statusCode == 200) {
+      final respStr = await response.stream.bytesToString();
+      final data = jsonDecode(respStr);
+      return data['image_url'];
+    }
+    return null;
   }
 }
