@@ -11,6 +11,7 @@ import 'features/home/home_page.dart';
 import 'features/home/main_user_nav.dart';
 import 'features/organizer/main_organizer_nav.dart';
 import 'features/admin/main_admin_nav.dart';
+import 'features/profile/apply_organizer_form.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -136,6 +137,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const MainUserNav(),
         '/organizer': (context) => const MainOrganizerNav(),
         '/admin': (context) => const MainAdminNav(),
+        '/apply-organizer': (context) => const ApplyOrganizerForm(),
       },
     );
   }

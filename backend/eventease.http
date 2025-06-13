@@ -1,9 +1,9 @@
-@user_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6InVzZXIiLCJpYXQiOjE3NDk0MTExMzQsImV4cCI6MTc0OTQ5NzUzNH0.PnQ4QNLMUtUlNnlcnZXJrE83kx8lrBdVzow_eNWv1sI
+@user_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6InVzZXIiLCJpYXQiOjE3NDk4MTM2NTMsImV4cCI6MTc0OTkwMDA1M30.dRghmPp-kPAFCJYiBsSnd8TIdfKUlLRjE0mjktEMsUE
 @organizer_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6Im9yZ2FuaXplciIsImlhdCI6MTc0OTQxMTE1MCwiZXhwIjoxNzQ5NDk3NTUwfQ.-_KPVMfPKb2xtJGCnzcmUhU-HLtxiPZdWP4ZNVV7Yio
-@admin_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzQ5NDExMDU4LCJleHAiOjE3NDk0OTc0NTh9.QjthkGa7VDE26fjEy-tCUxz9ivD-wGXVPH_rjoBcaa8
+@admin_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzQ5ODEzNzE5LCJleHAiOjE3NDk5MDAxMTl9.orZ_wRZOkhyyABp-twlbJl_lHngdJz6ma3mRb2U8Ws8
 
 ### Register User
-POST http://localhost:3000/api/auth/register
+POST https://be-mobile-alung-1061342868557.us-central1.run.app/api/auth/register
 Content-Type: application/json
 
 {
@@ -14,7 +14,7 @@ Content-Type: application/json
 }
 
 ### Register Organizer
-POST http://localhost:3000/api/auth/register
+POST https://be-mobile-alung-1061342868557.us-central1.run.app/api/auth/register
 Content-Type: application/json
 
 {
@@ -25,7 +25,7 @@ Content-Type: application/json
 }
 
 ### Register Admin
-POST http://localhost:3000/api/auth/register
+POST https://be-mobile-alung-1061342868557.us-central1.run.app/api/auth/register
 Content-Type: application/json
 
 {
@@ -36,7 +36,7 @@ Content-Type: application/json
 }
 
 ### Login User
-POST http://localhost:3000/api/auth/login
+POST https://be-mobile-alung-1061342868557.us-central1.run.app/api/auth/login
 Content-Type: application/json
 
 {
@@ -45,25 +45,25 @@ Content-Type: application/json
 }
 
 ### Login Organizer
-POST http://localhost:3000/api/auth/login
+POST https://be-mobile-alung-1061342868557.us-central1.run.app/api/auth/login
 Content-Type: application/json
 
 {
-  "username": "organizer1",
-  "password": "password123"
+  "username": "organizer",
+  "password": "password"
 }
 
 ### Login Admin
-POST http://localhost:3000/api/auth/login
+POST https://be-mobile-alung-1061342868557.us-central1.run.app/api/auth/login
 Content-Type: application/json
 
 {
-  "username": "admin1",
-  "password": "password123"
+  "username": "admin",
+  "password": "password"
 }
 
 ### Apply as Organizer
-POST http://localhost:3000/api/organizer/apply
+POST https://be-mobile-alung-1061342868557.us-central1.run.app/api/organizer/apply
 Authorization: Bearer {{user_token}}
 Content-Type: application/json
 
@@ -73,19 +73,19 @@ Content-Type: application/json
 }
 
 ### Admin - Get Organizer Requests
-GET http://localhost:3000/api/admin/organizer-requests
+GET https://be-mobile-alung-1061342868557.us-central1.run.app/api/admin/organizer-requests
 Authorization: Bearer {{admin_token}}
 
 ### Admin - Approve Organizer
-POST http://localhost:3000/api/admin/organizer-requests/2/approve
+POST https://be-mobile-alung-1061342868557.us-central1.run.app/api/admin/organizer-requests/1/approve
 Authorization: Bearer {{admin_token}}
 
 ### Admin - Reject Organizer
-POST http://localhost:3000/api/admin/organizer-requests/1/reject
+POST https://be-mobile-alung-1061342868557.us-central1.run.app/api/admin/organizer-requests/1/reject
 Authorization: Bearer {{admin_token}}
 
 ### Organizer - Create Event
-POST http://localhost:3000/api/organizer/event
+POST https://be-mobile-alung-1061342868557.us-central1.run.app/api/organizer/event
 Authorization: Bearer {{organizer_token}}
 Content-Type: application/json
 
@@ -102,7 +102,7 @@ Content-Type: application/json
 }
 
 ### Organizer - Edit Event
-PUT http://localhost:3000/api/organizer/event/1
+PUT https://be-mobile-alung-1061342868557.us-central1.run.app/api/organizer/event/1
 Authorization: Bearer {{organizer_token}}
 Content-Type: application/json
 
@@ -119,11 +119,11 @@ Content-Type: application/json
 }
 
 ### Organizer - Delete Event
-DELETE http://localhost:3000/api/organizer/event/2
+DELETE https://be-mobile-alung-1061342868557.us-central1.run.app/api/organizer/event/2
 Authorization: Bearer {{organizer_token}}
 
 ### Organizer - Add Important Location
-POST http://localhost:3000/api/organizer/location
+POST https://be-mobile-alung-1061342868557.us-central1.run.app/api/organizer/location
 Authorization: Bearer {{organizer_token}}
 Content-Type: application/json
 
@@ -136,7 +136,7 @@ Content-Type: application/json
 }
 
 ### Organizer - Edit Important Location
-PUT http://localhost:3000/api/organizer/location/1
+PUT https://be-mobile-alung-1061342868557.us-central1.run.app/api/organizer/location/1
 Authorization: Bearer {{organizer_token}}
 Content-Type: application/json
 
@@ -148,26 +148,26 @@ Content-Type: application/json
 }
 
 ### Organizer - Delete Important Location
-DELETE http://localhost:3000/api/organizer/location/1
+DELETE https://be-mobile-alung-1061342868557.us-central1.run.app/api/organizer/location/1
 Authorization: Bearer {{organizer_token}}
 
 ### Get All Events
-GET http://localhost:3000/api/event
+GET https://be-mobile-alung-1061342868557.us-central1.run.app/api/event
 
 ### Get Event By ID
-GET http://localhost:3000/api/event/1
+GET https://be-mobile-alung-1061342868557.us-central1.run.app/api/event/1
 
 ### Search Event by Name/Category
-GET http://localhost:3000/api/event/search?name=konser&category=Music
+GET https://be-mobile-alung-1061342868557.us-central1.run.app/api/event/search?name=konser&category=Music
 
 ### Get Nearby Events
-GET http://localhost:3000/api/event/nearby?longitude=106.827153&latitude=-6.175392&radius=5
+GET https://be-mobile-alung-1061342868557.us-central1.run.app/api/event/nearby?longitude=106.827153&latitude=-6.175392&radius=5
 
 ### Get Important Locations by Event
-GET http://localhost:3000/api/location/event/1
+GET https://be-mobile-alung-1061342868557.us-central1.run.app/api/location/event/1
 
 ### Add Event to Favorite
-POST http://localhost:3000/api/user/favorites
+POST https://be-mobile-alung-1061342868557.us-central1.run.app/api/user/favorites
 Authorization: Bearer {{user_token}}
 Content-Type: application/json
 
@@ -176,11 +176,11 @@ Content-Type: application/json
 }
 
 ### Get My Favorites
-GET http://localhost:3000/api/user/favorites
+GET https://be-mobile-alung-1061342868557.us-central1.run.app/api/user/favorites
 Authorization: Bearer {{user_token}}
 
 ### Remove Event from Favorite
-DELETE http://localhost:3000/api/user/favorites
+DELETE https://be-mobile-alung-1061342868557.us-central1.run.app/api/user/favorites
 Authorization: Bearer {{user_token}}
 Content-Type: application/json
 
@@ -189,9 +189,9 @@ Content-Type: application/json
 }
 
 ### Organizer - Get My Events
-GET http://localhost:3000/api/organizer/my-events
+GET https://be-mobile-alung-1061342868557.us-central1.run.app/api/organizer/my-events
 Authorization: Bearer {{organizer_token}}
 
 ### Organizer - Get Important Locations by My Event
-GET http://localhost:3000/api/organizer/my-locations/1
+GET https://be-mobile-alung-1061342868557.us-central1.run.app/api/organizer/my-locations/1
 Authorization: Bearer {{organizer_token}}

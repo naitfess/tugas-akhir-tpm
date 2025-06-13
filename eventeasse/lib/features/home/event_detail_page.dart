@@ -220,7 +220,10 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                   style: const TextStyle(color: Color(0xFF388E3C), fontWeight: FontWeight.bold),
                                   items: timezoneOptions.map((tz) => DropdownMenuItem(value: tz, child: Text(tz))).toList(),
                                   onChanged: (val) {
-                                    if (val != null) { setState(() { selectedTimezone = val; }); }
+                                    if (val != null) {
+                                      setState(() { selectedTimezone = val; });
+                                      _convertTime();
+                                    }
                                   },
                                 ),
                               ],
@@ -243,7 +246,10 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                   style: const TextStyle(color: Color(0xFF388E3C), fontWeight: FontWeight.bold),
                                   items: currencyOptions.map((c) => DropdownMenuItem(value: c, child: Text(c))).toList(),
                                   onChanged: (val) {
-                                    if (val != null) { setState(() { selectedCurrency = val; }); }
+                                    if (val != null) {
+                                      setState(() { selectedCurrency = val; });
+                                      _convertPrice();
+                                    }
                                   },
                                 ),
                               ],

@@ -28,6 +28,9 @@ class _OrganizerCreateEventPageState extends State<OrganizerCreateEventPage> {
   String? _error;
   XFile? _pickedImage;
 
+  final List<String> _timeZoneOptions = ['WIB', 'WITA', 'WIT', 'London'];
+  final List<String> _currencyOptions = ['IDR', 'USD', 'EUR', 'JPY', 'AUD'];
+
   Future<void> _pickImage() async {
     final picker = ImagePicker();
     final image = await picker.pickImage(source: ImageSource.gallery);
@@ -121,9 +124,61 @@ class _OrganizerCreateEventPageState extends State<OrganizerCreateEventPage> {
                             validator: (v) => v == null || v.isEmpty ? 'Wajib diisi' : null,
                           ),
                           const SizedBox(height: 12),
+                          // Tanggal
                           TextFormField(
                             controller: _dateController,
-                            decoration: const InputDecoration(labelText: 'Tanggal (YYYY-MM-DDTHH:MM:SSZ)', filled: true, fillColor: Color(0xFFF1F8E9), border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16)))),
+                            readOnly: true,
+                            decoration: const InputDecoration(labelText: 'Tanggal & Waktu', filled: true, fillColor: Color(0xFFF1F8E9), border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16)))),
+                            validator: (v) => v == null || v.isEmpty ? 'Wajib diisi' : null,
+                            onTap: () async {
+                              final pickedDate = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(2020),
+                                lastDate: DateTime(2100),
+                              );
+                              if (pickedDate != null) {
+                                final pickedTime = await showTimePicker(
+                                  context: context,
+                                  initialTime: TimeOfDay.now(),
+                                );
+                                if (pickedTime != null) {
+                                  final dt = DateTime(
+                                    pickedDate.year,
+                                    pickedDate.month,
+                                    pickedDate.day,
+                                    pickedTime.hour,
+                                    pickedTime.minute,
+                                  );
+                                  _dateController.text = dt.toUtc().toIso8601String();
+                                }
+                              }
+                            },
+                          ),
+                          const SizedBox(height: 12),
+                          // Timezone
+                          DropdownButtonFormField<String>(
+                            value: _timeZoneController.text.isNotEmpty ? _timeZoneController.text : _timeZoneOptions[0],
+                            decoration: const InputDecoration(labelText: 'Time Zone', filled: true, fillColor: Color(0xFFF1F8E9), border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16)))),
+                            items: _timeZoneOptions.map((tz) => DropdownMenuItem<String>(value: tz, child: Text(tz))).toList(),
+                            onChanged: (val) {
+                              if (val != null) {
+                                setState(() { _timeZoneController.text = val; });
+                              }
+                            },
+                            validator: (v) => v == null || v.isEmpty ? 'Wajib diisi' : null,
+                          ),
+                          const SizedBox(height: 12),
+                          // Currency
+                          DropdownButtonFormField<String>(
+                            value: _currencyController.text.isNotEmpty ? _currencyController.text : _currencyOptions[0],
+                            decoration: const InputDecoration(labelText: 'Currency', filled: true, fillColor: Color(0xFFF1F8E9), border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16)))),
+                            items: _currencyOptions.map((c) => DropdownMenuItem<String>(value: c, child: Text(c))).toList(),
+                            onChanged: (val) {
+                              if (val != null) {
+                                setState(() { _currencyController.text = val; });
+                              }
+                            },
                             validator: (v) => v == null || v.isEmpty ? 'Wajib diisi' : null,
                           ),
                           const SizedBox(height: 12),
@@ -139,18 +194,6 @@ class _OrganizerCreateEventPageState extends State<OrganizerCreateEventPage> {
                             decoration: const InputDecoration(labelText: 'Latitude', filled: true, fillColor: Color(0xFFF1F8E9), border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16)))),
                             validator: (v) => v == null || v.isEmpty ? 'Wajib diisi' : null,
                             keyboardType: TextInputType.number,
-                          ),
-                          const SizedBox(height: 12),
-                          TextFormField(
-                            controller: _timeZoneController,
-                            decoration: const InputDecoration(labelText: 'Time Zone (WIB/WIT/WITA/London)', filled: true, fillColor: Color(0xFFF1F8E9), border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16)))),
-                            validator: (v) => v == null || v.isEmpty ? 'Wajib diisi' : null,
-                          ),
-                          const SizedBox(height: 12),
-                          TextFormField(
-                            controller: _currencyController,
-                            decoration: const InputDecoration(labelText: 'Currency (IDR/USD/dll)', filled: true, fillColor: Color(0xFFF1F8E9), border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16)))),
-                            validator: (v) => v == null || v.isEmpty ? 'Wajib diisi' : null,
                           ),
                           const SizedBox(height: 12),
                           TextFormField(

@@ -128,26 +128,39 @@ class _OrganizerEditEventPageState extends State<OrganizerEditEventPage> {
                             validator: (v) => v == null || v.isEmpty ? 'Wajib diisi' : null,
                           ),
                           const SizedBox(height: 12),
+                          // Tanggal
                           TextFormField(
                             controller: _dateController,
-                            decoration: const InputDecoration(labelText: 'Tanggal (YYYY-MM-DDTHH:MM:SSZ)', filled: true, fillColor: Color(0xFFF1F8E9), border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16)))),
+                            readOnly: true,
+                            decoration: const InputDecoration(labelText: 'Tanggal & Waktu', filled: true, fillColor: Color(0xFFF1F8E9), border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16)))),
                             validator: (v) => v == null || v.isEmpty ? 'Wajib diisi' : null,
+                            onTap: () async {
+                              final pickedDate = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.tryParse(_dateController.text) ?? DateTime.now(),
+                                firstDate: DateTime(2020),
+                                lastDate: DateTime(2100),
+                              );
+                              if (pickedDate != null) {
+                                final pickedTime = await showTimePicker(
+                                  context: context,
+                                  initialTime: TimeOfDay.fromDateTime(DateTime.tryParse(_dateController.text) ?? DateTime.now()),
+                                );
+                                if (pickedTime != null) {
+                                  final dt = DateTime(
+                                    pickedDate.year,
+                                    pickedDate.month,
+                                    pickedDate.day,
+                                    pickedTime.hour,
+                                    pickedTime.minute,
+                                  );
+                                  _dateController.text = dt.toUtc().toIso8601String();
+                                }
+                              }
+                            },
                           ),
                           const SizedBox(height: 12),
-                          TextFormField(
-                            controller: _longitudeController,
-                            decoration: const InputDecoration(labelText: 'Longitude', filled: true, fillColor: Color(0xFFF1F8E9), border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16)))),
-                            validator: (v) => v == null || v.isEmpty ? 'Wajib diisi' : null,
-                            keyboardType: TextInputType.number,
-                          ),
-                          const SizedBox(height: 12),
-                          TextFormField(
-                            controller: _latitudeController,
-                            decoration: const InputDecoration(labelText: 'Latitude', filled: true, fillColor: Color(0xFFF1F8E9), border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16)))),
-                            validator: (v) => v == null || v.isEmpty ? 'Wajib diisi' : null,
-                            keyboardType: TextInputType.number,
-                          ),
-                          const SizedBox(height: 12),
+                          // Timezone
                           DropdownButtonFormField<String>(
                             value: _timeZoneController.text.isNotEmpty ? _timeZoneController.text : _timeZoneOptions[0],
                             decoration: const InputDecoration(labelText: 'Time Zone', filled: true, fillColor: Color(0xFFF1F8E9), border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16)))),
@@ -160,6 +173,7 @@ class _OrganizerEditEventPageState extends State<OrganizerEditEventPage> {
                             validator: (v) => v == null || v.isEmpty ? 'Wajib diisi' : null,
                           ),
                           const SizedBox(height: 12),
+                          // Currency
                           DropdownButtonFormField<String>(
                             value: _currencyController.text.isNotEmpty ? _currencyController.text : _currencyOptions[0],
                             decoration: const InputDecoration(labelText: 'Currency', filled: true, fillColor: Color(0xFFF1F8E9), border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16)))),
