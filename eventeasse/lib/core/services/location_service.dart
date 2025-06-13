@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import '../models/location.dart';
 
 class LocationService {
-  static const String baseUrl = 'http://localhost:3000/api/location';
+  static const String baseUrl = 'https://be-mobile-alung-1061342868557.us-central1.run.app/api/location';
 
   Future<List<Location>> getLocationsByEvent(String token, int eventId) async {
     final response = await http.get(

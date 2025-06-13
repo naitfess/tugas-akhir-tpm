@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class OrganizerService {
-  static const String baseUrl = 'http://localhost:3000/api/organizer/apply';
+  static const String baseUrl = 'https://be-mobile-alung-1061342868557.us-central1.run.app/api/organizer/apply';
 
   Future<bool> applyOrganizer(String token, String orgName, String orgDesc) async {
     final response = await http.post(

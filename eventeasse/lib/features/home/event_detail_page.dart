@@ -119,7 +119,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                     borderRadius: BorderRadius.circular(28),
                     child: CachedNetworkImage(
                       imageUrl: widget.event.imageUrl != null && widget.event.imageUrl!.isNotEmpty
-                          ? 'http://localhost:3000${widget.event.imageUrl}'
+                          ? 'https://be-mobile-alung-1061342868557.us-central1.run.app${widget.event.imageUrl}'
                           : 'https://placehold.co/600x300?text=Event',
                       width: double.infinity,
                       height: 210,

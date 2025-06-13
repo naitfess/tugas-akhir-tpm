@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import '../models/organizer_request.dart';
 
 class AdminService {
-  static const String baseUrl = 'http://localhost:3000/api/admin';
+  static const String baseUrl = 'https://be-mobile-alung-1061342868557.us-central1.run.app/api/admin';
 
   Future<List<OrganizerRequest>> getOrganizerRequests(String token) async {
     final response = await http.get(

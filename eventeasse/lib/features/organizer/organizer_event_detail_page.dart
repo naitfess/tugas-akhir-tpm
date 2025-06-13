@@ -60,7 +60,7 @@ class OrganizerEventDetailPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(22),
                           child: CachedNetworkImage(
                             imageUrl: event.imageUrl != null && event.imageUrl!.isNotEmpty
-                              ? 'http://localhost:3000${event.imageUrl}'
+                              ? 'https://be-mobile-alung-1061342868557.us-central1.run.app${event.imageUrl}'
                               : 'https://placehold.co/600x400?text=Event',
                             height: 210,
                             width: double.infinity,

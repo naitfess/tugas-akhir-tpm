@@ -117,7 +117,7 @@ class _OrganizerEventsPageState extends State<OrganizerEventsPage> {
                                         child: ClipOval(
                                           child: CachedNetworkImage(
                                             imageUrl: event.imageUrl != null && event.imageUrl!.isNotEmpty
-                                                ? 'http://localhost:3000${event.imageUrl}'
+                                                ? 'https://be-mobile-alung-1061342868557.us-central1.run.app${event.imageUrl}'
                                                 : 'https://placehold.co/100x100?text=Event',
                                             width: 56,
                                             height: 56,

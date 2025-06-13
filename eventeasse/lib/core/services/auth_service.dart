@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AuthService {
-  static const String baseUrl = 'http://localhost:3000/api/auth';
+  static const String baseUrl = 'https://be-mobile-alung-1061342868557.us-central1.run.app/api/auth';
 
   Future<Map<String, dynamic>?> login(String username, String password) async {
     final response = await http.post(
@@ -63,7 +63,7 @@ class AuthService {
   }
 
   Future<String?> uploadProfileImage(String token, XFile image) async {
-    final uri = Uri.parse('http://localhost:3000/api/user/profile/image');
+    final uri = Uri.parse('https://be-mobile-alung-1061342868557.us-central1.run.app/api/user/profile/image');
     final request = http.MultipartRequest('POST', uri)
       ..headers['Authorization'] = 'Bearer $token'
       ..files.add(await http.MultipartFile.fromPath('image', image.path));

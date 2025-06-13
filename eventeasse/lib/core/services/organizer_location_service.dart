@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class OrganizerLocationService {
-  static const String baseUrl = 'http://localhost:3000/api/organizer/location';
+  static const String baseUrl = 'https://be-mobile-alung-1061342868557.us-central1.run.app/api/organizer/location';
 
   Future<bool> addLocation(String token, int eventId, String name, String type, double latitude, double longitude) async {
     final response = await http.post(

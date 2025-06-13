@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import '../models/event.dart';
 
 class FavoriteService {
-  static const String baseUrl = 'http://localhost:3000/api/user/favorites';
+  static const String baseUrl = 'https://be-mobile-alung-1061342868557.us-central1.run.app/api/user/favorites';
 
   Future<List<Event>> getFavorites(String token) async {
     final response = await http.get(

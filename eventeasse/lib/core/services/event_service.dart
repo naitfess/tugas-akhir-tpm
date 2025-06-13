@@ -4,7 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import '../models/event.dart';
 
 class EventService {
-  static const String baseUrl = 'http://localhost:3000/api';
+  static const String baseUrl = 'https://be-mobile-alung-1061342868557.us-central1.run.app/api';
 
   Future<List<Event>> getAllEvents(String token) async {
     final response = await http.get(
@@ -133,7 +133,7 @@ class EventService {
   }
 
   Future<String?> uploadEventImage(String token, int eventId, XFile image) async {
-    final uri = Uri.parse('http://localhost:3000/api/organizer/event/$eventId');
+    final uri = Uri.parse('https://be-mobile-alung-1061342868557.us-central1.run.app/api/organizer/event/$eventId');
     final request = http.MultipartRequest('PUT', uri)
       ..headers['Authorization'] = 'Bearer $token'
       ..files.add(await http.MultipartFile.fromPath('image', image.path));
